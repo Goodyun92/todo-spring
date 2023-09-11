@@ -13,7 +13,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/plans")
 @RequiredArgsConstructor
@@ -22,6 +21,7 @@ public class PlanController {
 //    @Autowired
     private final PlanService planService;
 
+    @CrossOrigin("*")
     @GetMapping("/{user_id}/get-plan")
     public ResponseEntity<List<Plan>> getPlansByDate(@PathVariable("user_id") Long userId,
                                                      @RequestParam String date) {
@@ -29,6 +29,7 @@ public class PlanController {
         return ResponseEntity.ok(plans);
     }
 
+    @CrossOrigin("*")
     @PostMapping("/{user_id}/post-plan")
     public ResponseEntity<Plan> createPlan(@PathVariable("user_id") Long userId,
                                            @RequestBody PlanDto planDto) {
@@ -36,6 +37,7 @@ public class PlanController {
         return ResponseEntity.ok(createdPlan);
     }
 
+    @CrossOrigin("*")
     @PatchMapping("/{user_id}/update-plan/{plan_id}")
     public ResponseEntity<Plan> updatePlan(@PathVariable("user_id") Long userId,
                                            @PathVariable("plan_id") Long planId,
@@ -66,6 +68,7 @@ public class PlanController {
 //
 //    }
 
+    @CrossOrigin("*")
     @DeleteMapping("/{userId}/delete-plan/{planId}")
     public ResponseEntity<Void> deletePlan(@PathVariable Long userId, @PathVariable Long planId) {
         try {

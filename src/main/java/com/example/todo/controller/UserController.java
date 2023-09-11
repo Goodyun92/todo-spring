@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
@@ -19,12 +18,14 @@ public class UserController {
 //    @Autowired
     private final UserService userService;
 
+    @CrossOrigin("*")
     @PostMapping("/sign-up")
     public ResponseEntity<User> signUp(@RequestBody UserDto userDto) {
         User savedUser = userService.signUp(userDto);
         return ResponseEntity.ok(savedUser);
     }
 
+    @CrossOrigin("*")
     @GetMapping("/log-in")
     public ResponseEntity<Long> logIn(@RequestParam String userName, @RequestParam String password) {
         Optional<Long> userId = userService.logIn(userName, password);
@@ -32,6 +33,7 @@ public class UserController {
                 .orElse(ResponseEntity.badRequest().build());
     }
 
+    @CrossOrigin("*")
     @PostMapping("/{user_id}/log-out")
     public ResponseEntity<Void> logOut(@PathVariable("user_id") String userId) {
         userService.logOut(userId);
