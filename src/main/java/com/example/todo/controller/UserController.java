@@ -29,8 +29,15 @@ public class UserController {
     @PostMapping("/sign-up")
     @Operation(summary = "회원가입", description = "회원가입을 수행합니다.")
     public ResponseEntity<User> signUp(@RequestBody UserDto userDto) {
-        User savedUser = userService.signUp(userDto);
-        return ResponseEntity.ok(savedUser);
+        try {
+            User savedUser = userService.signUp(userDto);
+            return ResponseEntity.ok(savedUser);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        }
+
+//        User savedUser = userService.signUp(userDto);
+//        return ResponseEntity.ok(savedUser);
     }
 
     @CrossOrigin("*")

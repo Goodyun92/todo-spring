@@ -17,7 +17,13 @@ public class UserService {
     private final UserRepository userRepository;
 
     public User signUp(UserDto userDto) {
-        // 회원가입 로직 (데이터 유효성 검사, 암호화 등)
+
+        //중복처리
+        Optional<User> existingUser = userRepository.findByUserName(userDto.getUserName());
+        if (existingUser.isPresent()) {
+            throw new IllegalArgumentException("Username already exists");
+        }
+
         User newUser = new User();
         BeanUtils.copyProperties(userDto, newUser);
 //        newUser.setUserName(request.getUserName());
