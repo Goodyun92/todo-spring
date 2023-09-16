@@ -28,12 +28,12 @@ public class UserController {
     @CrossOrigin("*")
     @PostMapping("/sign-up")
     @Operation(summary = "회원가입", description = "회원가입을 수행합니다.")
-    public ResponseEntity<User> signUp(@RequestBody UserDto userDto) {
+    public ResponseEntity<?> signUp(@RequestBody UserDto userDto) {
         try {
             User savedUser = userService.signUp(userDto);
             return ResponseEntity.ok(savedUser);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("The username is already taken.");
         }
 
 //        User savedUser = userService.signUp(userDto);
